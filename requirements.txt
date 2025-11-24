@@ -1,0 +1,21 @@
+# Core framework dependencies
+crewai==0.28.8
+crewai-tools==0.1.6
+langchain==0.1.20
+langchain-openai==0.1.7
+langchain-community==0.0.38
+
+# OpenAI integration
+openai==1.30.1
+
+# Environment management
+python-dotenv==1.0.1
+
+# Additional dependencies for web scraping and search
+beautifulsoup4==4.12.3
+requests==2.31.0
+lxml==5.2.1
+
+# Optional: For enhanced functionality
+pydantic==2.7.1
+typing-extensions==4.11.0
