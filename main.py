@@ -22,6 +22,30 @@ search_tool = SerperDevTool()
 scrape_tool = ScrapeWebsiteTool()
 
 
+def get_llm() -> ChatOpenAI:
+    """
+    Create and return a configured ChatOpenAI instance.
+    
+    Returns:
+        ChatOpenAI instance configured with API key and model settings
+    
+    Raises:
+        ValueError: If OPENAI_API_KEY is not set
+    """
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError(
+            "OPENAI_API_KEY environment variable is not set. "
+            "Please add it to your .env file."
+        )
+    
+    return ChatOpenAI(
+        model=os.getenv("OPENAI_MODEL", "gpt-4"),
+        temperature=0.7,
+        api_key=api_key
+    )
+
+
 def create_research_analyst() -> Agent:
     """
     Create the Senior Research Analyst agent.
@@ -41,11 +65,7 @@ def create_research_analyst() -> Agent:
         verbose=True,
         allow_delegation=False,
         tools=[search_tool, scrape_tool],
-        llm=ChatOpenAI(
-            model=os.getenv("OPENAI_MODEL", "gpt-4"),
-            temperature=0.7,
-            api_key=os.getenv("OPENAI_API_KEY")
-        )
+        llm=get_llm()
     )
 
 
@@ -67,11 +87,7 @@ def create_content_officer() -> Agent:
         ),
         verbose=True,
         allow_delegation=False,
-        llm=ChatOpenAI(
-            model=os.getenv("OPENAI_MODEL", "gpt-4"),
-            temperature=0.7,
-            api_key=os.getenv("OPENAI_API_KEY")
-        )
+        llm=get_llm()
     )
 
 
